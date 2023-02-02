@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { StatusBar } from 'expo-status-bar';
-//import Dropdown from 'react-native-input-select';
+import SelectDropdown from 'react-native-select-dropdown';
 import { useState } from 'react';
 import { StyleSheet, Text, View, Image, TextInput, ScrollView, Button } from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
@@ -16,6 +16,12 @@ import { chord } from './logic';
   const [root, setroot] = useState('');
   const [type,setType]= useState('');
   const [result,setResult]= useState('');
+ 
+
+  const chordType = ["Mayor", "Minor", "Mayor7", "Minor7",'Dominant7','Diminished','Diminished7','Augmented','Half-Diminished7'];
+  const chordExtensions=['Mayor9','Minor9','Dominant9','Mayor11','Minor11','Dominant11','Mayor13','Minor13','Dominant13'];
+
+ 
 
   return (
     
@@ -24,18 +30,30 @@ import { chord } from './logic';
       <Dashboard navigation= {navigation}/>
       <View style={styles.main}>
       <TextInput
-        style={{height: 40, borderWidth: 1}}
+        style={{height: 40, borderWidth: 1,width: 200, fontSize:20}}
         placeholder="Root"
         onChangeText={newText => setroot(newText)}
         defaultValue={root}
       />
-      <TextInput
-        style={{height: 40, borderWidth: 1}}
-        placeholder="Type"
-        onChangeText={newText => setType(newText)}
-        defaultValue={type}
+      <View>
+      <Text>Basic :</Text>
+      <SelectDropdown data={chordType} defaultButtonText='Basic Chord'
+      onSelect={(selectedItem) => {
+        setType(selectedItem);
+      }} 
       />
+      </View>
+
+      <View>
+      <Text>Exntensions Chord :</Text>
+      <SelectDropdown data={chordExtensions} defaultButtonText='Extensions Chord'
+      onSelect={(selectedItem)=>{
+        setType(selectedItem);
+      }}
+      />
+      </View>
      
+      <Text style={{fontSize:20, padding:30}}>{root} {type}</Text>
       <Button title='Find' onPress={()=> setResult(chord(root,type))}/>
       <Text style={{fontSize:20, padding:30}}
       >{result}</Text>
