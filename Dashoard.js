@@ -7,11 +7,10 @@ export default function Dashboard(props){
     return(
         <View>
             <View style={styles.title}>
-            <Text style={{fontSize : 20}}>Music Chord Generator</Text>
+            <Text style={{fontSize : 24}}>Music Chord Generator</Text>
         </View>
         <View style={styles.dashboard}>
             <Button style={styles.dashboard.text} title='Home' onPress={()=>{props.navigation.navigate('Home')}}/>
-            <Button style={styles.dashboard.text} title='Profile' onPress={()=>{props.navigation.navigate('Profile')}}/>
             <Button style={styles.dashboard.text} title='About' onPress={()=>{props.navigation.navigate('About',{about_id: ''})}}/>
         </View>
         </View>
@@ -24,7 +23,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection : 'row',
         justifyContent: 'center',
-        paddingBottom: 10,
+        paddingBottom: 20,
       },
       dashboard:{
         display: 'flex',
