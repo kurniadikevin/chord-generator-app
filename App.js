@@ -18,12 +18,27 @@ import { useCallback } from 'react';
   const [root, setRoot] = useState('C');
   const [type,setType]= useState('');
   const [result,setResult]= useState('');
+  const [resultIndex,setResultIndex]= useState('');
+
+  const defaultBtnColor='#4B505A';
+  const selectedBtnColor='white';
+
+  const [rootSelectColor,setRootSelectColor]= useState(defaultBtnColor);
+  const [basicSelectColor,setBasicSelectColor]= useState(defaultBtnColor);
+  const [extSelectColor,setExtSelectColor]= useState(defaultBtnColor);
  
   const rootSelection=['C','C#','D','Eb','E','F','F#','G','Ab','A','Bb','B'];
   const chordType = ["Mayor", "Minor", "Mayor7", "Minor7",'Dominant7','Diminished','Diminished7','Augmented','Half-Diminished7'];
   const chordExtensions=['Mayor9','Minor9','Dominant9','Mayor11','Minor11','Dominant11','Mayor13','Minor13','Dominant13'];
 
- 
+  const indexingResult =(input)=>{
+    const resArr = input.split(' ');
+    let indexArr= [];
+    for(let i=0; i<resArr.length; i++){
+      indexArr.push( 1+ (i*2));
+    }
+    return indexArr.join(' ');
+    }
 
   return (
     
@@ -36,41 +51,56 @@ import { useCallback } from 'react';
         <Text  style={styles.main.cont.text}>Root</Text>
         <SelectDropdown
           data={rootSelection}
-          defaultButtonText='C'
-          style={{height: 40, borderWidth: 1,width: 200, fontSize:20}}
-          placeholder="Root"
-          onSelect={selectedItem => setRoot(selectedItem)}
-          defaultValue={root}
+          defaultButtonText='Not Selected'
+          onSelect={selectedItem =>{ 
+             setRoot(selectedItem)
+            setRootSelectColor(selectedBtnColor)
+          }
+          }
+          
+          buttonStyle={{backgroundColor:  rootSelectColor}} 
         />
       </View>
 
       <View style={styles.main.cont}>
-        <Text style={styles.main.cont.text}>Basic Chord :</Text>
-        <SelectDropdown
-         data={chordType} defaultButtonText='Not Selected'
-        onSelect={(selectedItem) => {
-          setType(selectedItem);
-      }} 
-      />
+          <Text style={styles.main.cont.text}>Basic Chord :</Text>
+          <SelectDropdown 
+          data={chordType} defaultButtonText='Not Selected'
+          onSelect={(selectedItem) => {
+            setType(selectedItem);
+            setBasicSelectColor(selectedBtnColor);
+            setExtSelectColor(defaultBtnColor);
+        }} 
+        buttonStyle={{backgroundColor:  basicSelectColor}} 
+        />
       </View>
 
       <View style={styles.main.cont}>
-        <Text  style={styles.main.cont.text}>Extensions Chord :</Text>
-        <SelectDropdown data={chordExtensions} defaultButtonText='Not Selected'
-        onSelect={(selectedItem)=>{
-          setType(selectedItem);
-        }}
-        />
+          <Text  style={styles.main.cont.text}>Extensions Chord :</Text>
+          <SelectDropdown data={chordExtensions} defaultButtonText='Not Selected'
+          onSelect={(selectedItem)=>{
+            setType(selectedItem);
+            setExtSelectColor(selectedBtnColor);
+            setBasicSelectColor(defaultBtnColor);
+          }}
+          buttonStyle={{backgroundColor:  extSelectColor}}
+          />
       </View>
      
      <View style={styles.findCont}>
-      <Button title='Find' onPress={()=> setResult(chord(root,type))}
+      <Button title='Find' onPress={()=> {
+        setResult(chord(root,type));
+        setResultIndex(indexingResult( chord(root,type) ));
+      }}
         style={styles.buttonStyle}/>
       <Text style={{fontSize:20 , marginLeft: 10, fontFamily:'Bebas-Regular'}}>{root} {type}</Text>
      </View>
-      <Text style={{fontSize:24, padding:30,/*  fontFamily:'Bebas-Regular' */}}/*bebas-regular  having auto uppercase */
-      >{result}</Text>
-
+        <Text style={{fontSize:24, paddingTop:30,/*  fontFamily:'Bebas-Regular' */}}/*bebas-regular  having auto uppercase */
+        >{result}
+        </Text>
+        <Text style={{fontSize:24,paddingTop:15,letterSpacing:3 /*  fontFamily:'Bebas-Regular' */}}/*bebas-regular  having auto uppercase */
+        >{resultIndex}
+        </Text>
       </View>
     </ScrollView>
 
@@ -95,7 +125,7 @@ const styles = StyleSheet.create({
       borderWidth: 1,
       margin: 9,
       padding: 3,
-      backgroundColor : '#4B505A',
+      backgroundColor: '#4B505A',
       text: {
         color: '#FFFFFF'
       }
