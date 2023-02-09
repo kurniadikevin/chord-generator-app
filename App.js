@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import SelectDropdown from 'react-native-select-dropdown';
-import { useState ,useEffect} from 'react';
-import { StyleSheet, Text, View, Image, TextInput, ScrollView, Button } from 'react-native';
+import { useState } from 'react';
+import { StyleSheet, Text, View, Image, TextInput, ScrollView, Button,TouchableOpacity } from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NativeScreenNavigationContainer } from 'react-native-screens';
@@ -11,6 +11,7 @@ import { chord } from './logic';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { useCallback } from 'react';
+import CustomText from './CustomText';
 
 
  function Home({navigation}) {
@@ -44,11 +45,13 @@ import { useCallback } from 'react';
     
   
     <ScrollView style={styles.container}>
-     <Dashboard navigation= {navigation}/>
+       <Dashboard navigation= {navigation}/>
       <View style={styles.main}>
 
       <View style={styles.main.cont}>
-        <Text  style={styles.main.cont.text}>Root</Text>
+        <CustomText>
+          <Text  style={styles.main.cont.text}>Root</Text>
+        </CustomText>
         <SelectDropdown
           data={rootSelection}
           defaultButtonText='Not Selected'
@@ -63,7 +66,9 @@ import { useCallback } from 'react';
       </View>
 
       <View style={styles.main.cont}>
-          <Text style={styles.main.cont.text}>Basic Chord :</Text>
+          <CustomText>
+            <Text style={styles.main.cont.text}>Basic Chord :</Text>
+          </CustomText>
           <SelectDropdown 
           data={chordType} defaultButtonText='Not Selected'
           onSelect={(selectedItem) => {
@@ -76,7 +81,9 @@ import { useCallback } from 'react';
       </View>
 
       <View style={styles.main.cont}>
-          <Text  style={styles.main.cont.text}>Extensions Chord :</Text>
+          <CustomText>
+            <Text  style={styles.main.cont.text}>Extensions Chord :</Text>
+          </CustomText>
           <SelectDropdown data={chordExtensions} defaultButtonText='Not Selected'
           onSelect={(selectedItem)=>{
             setType(selectedItem);
@@ -88,19 +95,33 @@ import { useCallback } from 'react';
       </View>
      
      <View style={styles.findCont}>
-      <Button title='Find' onPress={()=> {
-        setResult(chord(root,type));
-        setResultIndex(indexingResult( chord(root,type) ));
-      }}
-        style={styles.buttonStyle}/>
-      <Text style={{fontSize:20 , marginLeft: 10, /* fontFamily:'Bebas-Regular' */}}>{root} {type}</Text>
+      
+      <TouchableOpacity onPress={()=> {
+          setResult(chord(root,type));
+          setResultIndex(indexingResult( chord(root,type) ));
+        }} style={{paddingRight: 10}}>
+          <CustomText style={styles.findButton}>
+            Find
+          </CustomText>
+      </TouchableOpacity>
+      <View style={styles.chordCont}>
+        <CustomText style={{marginLeft: 15}}>
+        <Text style={{fontSize:20}}>{root} {type}</Text>
+        </CustomText>
+      </View>
      </View>
-        <Text style={{fontSize:24, paddingTop:30,/*  fontFamily:'Bebas-Regular' */}}/*bebas-regular  having auto uppercase */
+     
+      <CustomText>
+        <Text style={{fontSize:24, paddingTop:30,letterSpacing:2}}
         >{result}
         </Text>
-        <Text style={{fontSize:24,paddingTop:15,letterSpacing:3 /*  fontFamily:'Bebas-Regular' */}}/*bebas-regular  having auto uppercase */
+      </CustomText>
+      <CustomText style={{paddingTop: 15, letterSpacing: 8}}>
+        <Text style={{fontSize:24}}
         >{resultIndex}
         </Text>
+      </CustomText>
+    
       </View>
     </ScrollView>
 
@@ -109,22 +130,22 @@ import { useCallback } from 'react';
 
 const styles = StyleSheet.create({
   container: {
-   padding: 50,
-   backgroundColor: '#F2E1C3',
+   padding: 40,
+   backgroundColor: '#D2D2D2',
   
   },
 
  
   main : {
     padding: 10,
-    paddingTop: 25,
+    paddingTop: 15,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     cont: {
       borderWidth: 1,
-      margin: 9,
-      padding: 3,
+      margin: 10,
+      padding: 8,
       backgroundColor: '#4B505A',
       text: {
         color: '#FFFFFF'
@@ -134,28 +155,35 @@ const styles = StyleSheet.create({
   },
   textFont: {
     color: 'black',
-   /*  fontFamily:'Bebas-Regular' */
+  },
+  chordCont:{
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center'
   },
   findCont:{
     display: 'flex',
     flexDirection:'row',
     paddingTop: 25,
-   
+   paddingBottom: 20
   },
-  buttonStyle:{
-    backgroundColor : '#4B505A'
+  findButton:{
+    fontSize: 16,
+    backgroundColor:  '#4B505A',
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft: 12,
+    paddingRight:12,
+    color: '#ffffff',
+    
   }
-
-
 })
 
 
 
 function About ({navigation,route}){
 
-  
-  const {about_id}= route.params;
-
+ 
   return(
     <ScrollView style={styles.container}>
       <Dashboard navigation={navigation}/>
@@ -174,6 +202,7 @@ const Stack = createNativeStackNavigator();
 export default function App(){
   const [fontsLoaded] = useFonts({
     'Bebas-Regular': require('./assets/fonts/Bebas-Regular.otf'),
+    'Creato-Display' :require('./assets/fonts/CreatoDisplay-Regular.otf'),
   });
 
   const onLayoutRootView = useCallback(async () => {
