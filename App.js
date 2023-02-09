@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import SelectDropdown from 'react-native-select-dropdown';
-import { useState } from 'react';
+import { useState ,useEffect} from 'react';
 import { StyleSheet, Text, View, Image, TextInput, ScrollView, Button } from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NativeScreenNavigationContainer } from 'react-native-screens';
-import Dashboard from './Dashoard';
+import Dashboard from './Dashboard';
 import { chord } from './logic';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
@@ -93,7 +93,7 @@ import { useCallback } from 'react';
         setResultIndex(indexingResult( chord(root,type) ));
       }}
         style={styles.buttonStyle}/>
-      <Text style={{fontSize:20 , marginLeft: 10, fontFamily:'Bebas-Regular'}}>{root} {type}</Text>
+      <Text style={{fontSize:20 , marginLeft: 10, /* fontFamily:'Bebas-Regular' */}}>{root} {type}</Text>
      </View>
         <Text style={{fontSize:24, paddingTop:30,/*  fontFamily:'Bebas-Regular' */}}/*bebas-regular  having auto uppercase */
         >{result}
@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
   },
   textFont: {
     color: 'black',
-    fontFamily:'Bebas-Regular'
+   /*  fontFamily:'Bebas-Regular' */
   },
   findCont:{
     display: 'flex',
@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
   }
 
 
-});
+})
 
 
 
@@ -170,6 +170,7 @@ function About ({navigation,route}){
 
 const Stack = createNativeStackNavigator();
 
+
 export default function App(){
   const [fontsLoaded] = useFonts({
     'Bebas-Regular': require('./assets/fonts/Bebas-Regular.otf'),
@@ -178,14 +179,18 @@ export default function App(){
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {
       await SplashScreen.hideAsync();
+      
     }
   }, [fontsLoaded]);
 
   if (!fontsLoaded) {
     return null;
   }
+
+  onLayoutRootView();
+  
   return (
-    <NavigationContainer>
+    <NavigationContainer >
       <Stack.Navigator mode="modal">
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="About" component={About} />

@@ -29,7 +29,7 @@ export default function Dashboard(props){
     return(
         <View>
             <View style={styles.title}>
-            <Text style={{fontSize : 24, fontFamily: 'Bebas-Regular'}}>Music Chord Generator</Text>
+            <Text style={{fontSize : 24, fontFamily: 'Bebas-Regular'}}>Music Chord Generator </Text>
         </View>
         <View style={styles.dashboard}>
             <Button style={styles.dashboard.text} title='Home' onPress={()=>{props.navigation.navigate('Home')}}/>
