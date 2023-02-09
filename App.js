@@ -1,11 +1,9 @@
 import * as React from 'react';
-import { StatusBar } from 'expo-status-bar';
 import SelectDropdown from 'react-native-select-dropdown';
 import { useState } from 'react';
 import { StyleSheet, Text, View, Image, TextInput, ScrollView, Button,TouchableOpacity } from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { NativeScreenNavigationContainer } from 'react-native-screens';
 import Dashboard from './Dashboard';
 import { chord } from './logic';
 import { useFonts } from 'expo-font';
@@ -186,7 +184,7 @@ function About ({navigation,route}){
  
   return(
     <ScrollView style={styles.container}>
-      <Dashboard navigation={navigation}/>
+      <Dashboard navigation={navigation} onVisitAbout = 'true' onVisitHome='false'/>
       <View style={styles.main}>
         <Text>About all</Text>
       </View>

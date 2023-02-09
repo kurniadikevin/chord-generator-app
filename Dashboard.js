@@ -1,33 +1,43 @@
-import { StyleSheet, Text, View, Image, TextInput, ScrollView, Button,TouchableOpacity } from 'react-native';
-import { NativeScreenNavigationContainer } from 'react-native-screens';
-import {NavigationContainer} from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { useFonts } from 'expo-font';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
-import { useCallback } from 'react';
 import CustomText from './CustomText';
+
 
 SplashScreen.preventAutoHideAsync();
 
 
 export default function Dashboard(props){
 
+  let homeToggle=styles.buttonTextOnVisit;
+  let aboutToggle;
+
+  if(props.onVisitHome === 'true'){
+    homeToggle= styles.buttonTextOnVisit;
+    aboutToggle= styles.buttonText;
+  } else if(props.onVisitAbout==='true'){
+    homeToggle= styles.buttonText;
+    aboutToggle= styles.buttonTextOnVisit;
+  }
 
     return(
         <View>
             <View style={styles.title}>
             <CustomText>
-              <Text style={{fontSize : 24}}>Music Chord Generator </Text>
+              <Text style={{fontSize : 24}}>Music Chord Generator</Text>
             </CustomText>
         </View>
         <View style={styles.dashboard}>
-            <TouchableOpacity  onPress={()=>{props.navigation.navigate('Home')}} style={{paddingRight: 10}}>
-            <CustomText style={styles.buttonText}>
+            <TouchableOpacity  onPress={()=>{props.navigation.navigate('Home')
+              }} style={{paddingRight: 10}}>
+            <CustomText style={homeToggle}>
               Home
             </CustomText>
             </TouchableOpacity>
-            <TouchableOpacity  onPress={()=>{props.navigation.navigate('About')}}>
-              <CustomText  style={styles.buttonText}>
+            <TouchableOpacity  onPress={()=>{
+              props.navigation.navigate('About');
+
+              }}>
+              <CustomText  style={aboutToggle}>
               About
               </CustomText>
             </TouchableOpacity>
@@ -59,6 +69,10 @@ const styles = StyleSheet.create({
       },
       buttonText:{
         fontSize: 16
+      },
+      buttonTextOnVisit:{
+        fontSize: 16,
+        fontWeight:'700'
       }
 
 })
