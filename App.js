@@ -58,8 +58,8 @@ import CustomText from './CustomText';
             setRootSelectColor(selectedBtnColor)
           }
           }
-          
           buttonStyle={{backgroundColor:  rootSelectColor}} 
+          buttonTextStyle={{ fontFamily: 'Creato-Display'}}
         />
       </View>
 
@@ -75,6 +75,7 @@ import CustomText from './CustomText';
             setExtSelectColor(defaultBtnColor);
         }} 
         buttonStyle={{backgroundColor:  basicSelectColor}} 
+        buttonTextStyle={{ fontFamily: 'Creato-Display'}}
         />
       </View>
 
@@ -89,6 +90,7 @@ import CustomText from './CustomText';
             setBasicSelectColor(defaultBtnColor);
           }}
           buttonStyle={{backgroundColor:  extSelectColor}}
+          buttonTextStyle={{ fontFamily: 'Creato-Display'}}
           />
       </View>
      
