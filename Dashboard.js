@@ -23,7 +23,7 @@ export default function Dashboard(props){
         <View>
             <View style={styles.title}>
             <CustomText>
-              <Text style={{fontSize : 24}}>Music Chord Generator</Text>
+              <Text style={{fontSize : 24}}>Scale Chord Generator</Text>
             </CustomText>
         </View>
         <View style={styles.dashboard}>

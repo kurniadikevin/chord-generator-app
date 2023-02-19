@@ -5,7 +5,9 @@ import { StyleSheet, Text, View, Image, TextInput, ScrollView, Button,TouchableO
 import {NavigationContainer} from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Dashboard from './Dashboard';
-import { chord } from './logic';
+import {chord} from './chord-logic';
+import {scale} from './scale-logic';
+import { getOrdinal } from './ordinalNum-logic';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { useCallback } from 'react';
@@ -14,6 +16,7 @@ import CustomText from './CustomText';
 
  function Home({navigation}) {
 
+  const [dataType,setDataType]= useState('');
   const [root, setRoot] = useState('C');
   const [type,setType]= useState('');
   const [result,setResult]= useState('');
@@ -29,14 +32,27 @@ import CustomText from './CustomText';
   const rootSelection=['C','C#','D','Eb','E','F','F#','G','Ab','A','Bb','B'];
   const chordType = ["Mayor", "Minor", "Mayor7", "Minor7",'Dominant7','Diminished','Diminished7','Augmented','Half-Diminished7'];
   const chordExtensions=['Mayor9','Minor9','Dominant9','Mayor11','Minor11','Dominant11','Mayor13','Minor13','Dominant13'];
+  const scaleType =['Mayor','Minor(Natural)','Harmonic-Minor','Melodic-Minor','Pentatonic-Mayor','Pentatonic-Minor','Whole-Tone','Augmented','Diminished'];
 
-  const indexingResult =(input)=>{
+  const [dataSelection, setDataSelection]= useState(chordType);
+
+  const indexingResult =(input,type)=>{
+    if(input){
     const resArr = input.split(' ');
     let indexArr= [];
     for(let i=0; i<resArr.length; i++){
+      if(type === 'chord'){
       indexArr.push( 1+ (i*2));
+    } else if(type === 'scale'){
+      indexArr.push(1 + i);
     }
-    return indexArr.join(' ');
+  }
+    let ordinalArr= indexArr.map((num)=>{
+      return getOrdinal(num);
+    })
+
+    return ordinalArr.join('  ');
+  }
     }
 
   return (
@@ -45,6 +61,22 @@ import CustomText from './CustomText';
     <ScrollView style={styles.container}>
        <Dashboard navigation= {navigation}/>
       <View style={styles.main}>
+
+    <View style={{paddingBottom: 10}}>
+      <SelectDropdown data={['Chord','Scale']}
+      defaultButtonText='Chord'
+      onSelect={selectedItem =>{ 
+        setDataType(selectedItem);
+        if( selectedItem === 'Chord'){
+          setDataSelection(chordType);
+        } else if( selectedItem === 'Scale'){
+          setDataSelection(scaleType);
+        }
+      }}
+      buttonTextStyle={{ fontFamily: 'Creato-Display'}}
+      buttonStyle={{width: 100, opacity: 0.8}} 
+      />
+    </View>
 
       <View style={styles.main.cont}>
         <CustomText>
@@ -65,10 +97,11 @@ import CustomText from './CustomText';
 
       <View style={styles.main.cont}>
           <CustomText>
-            <Text style={styles.main.cont.text}>Basic Chord :</Text>
+            <Text style={styles.main.cont.text}>Basic {dataType} :</Text>
           </CustomText>
           <SelectDropdown 
-          data={chordType} defaultButtonText='Not Selected'
+          data={dataSelection}
+           defaultButtonText='Not Selected'
           onSelect={(selectedItem) => {
             setType(selectedItem);
             setBasicSelectColor(selectedBtnColor);
@@ -79,9 +112,10 @@ import CustomText from './CustomText';
         />
       </View>
 
+  {dataType === 'Chord' && 
       <View style={styles.main.cont}>
           <CustomText>
-            <Text  style={styles.main.cont.text}>Extensions Chord :</Text>
+            <Text  style={styles.main.cont.text}>Extensions {dataType} :</Text>
           </CustomText>
           <SelectDropdown data={chordExtensions} defaultButtonText='Not Selected'
           onSelect={(selectedItem)=>{
@@ -93,12 +127,18 @@ import CustomText from './CustomText';
           buttonTextStyle={{ fontFamily: 'Creato-Display'}}
           />
       </View>
-     
+     }
+
      <View style={styles.findCont}>
       
       <TouchableOpacity onPress={()=> {
+        if(dataType === 'Scale'){
+          setResult(scale(root,type));
+          setResultIndex(indexingResult( scale(root,type) ,'scale'));
+        } else {
           setResult(chord(root,type));
-          setResultIndex(indexingResult( chord(root,type) ));
+          setResultIndex(indexingResult( chord(root,type) ,'chord'));
+        }
         }} style={{paddingRight: 10}}>
           <CustomText style={styles.findButton}>
             Find
@@ -116,8 +156,8 @@ import CustomText from './CustomText';
         >{result}
         </Text>
       </CustomText>
-      <CustomText style={{paddingTop: 15, letterSpacing: 8}}>
-        <Text style={{fontSize:24}}
+      <CustomText style={{paddingTop: 15, letterSpacing: 2}}>
+        <Text style={{fontSize:10}}
         >{resultIndex}
         </Text>
       </CustomText>
