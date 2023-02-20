@@ -451,7 +451,7 @@ const chord = function (roots,type){
     } 
     
     else {
-      return '*please select a valid option'
+      return '';
   }
     
 }

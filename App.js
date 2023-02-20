@@ -38,9 +38,6 @@ import CustomText from './CustomText';
 
   const indexingResult =(input,type)=>{
     if(input){
-      if (input.length > 20){
-        return '';
-      }
     const resArr = input.split(' ');
     let indexArr= [];
     for(let i=0; i<resArr.length; i++){
@@ -55,6 +52,8 @@ import CustomText from './CustomText';
     })
 
     return ordinalArr.join('  ');
+  } else{
+    return 'Please select valid option'
   }
     }
 
@@ -81,7 +80,7 @@ import CustomText from './CustomText';
         }
       }}
       buttonTextStyle={{ fontFamily: 'Creato-Display'}}
-      buttonStyle={{width: 100, opacity: 0.8}} 
+      buttonStyle={{width: 100, height: 40, opacity: 0.8}} 
       />
     </View>
 
@@ -164,7 +163,7 @@ import CustomText from './CustomText';
         </Text>
       </CustomText>
       <CustomText style={{paddingTop: 15, letterSpacing: 2}}>
-        <Text style={{fontSize:10}}
+        <Text style={{fontSize:14}}
         >{resultIndex}
         </Text>
       </CustomText>

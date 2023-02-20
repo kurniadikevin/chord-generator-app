@@ -31,7 +31,7 @@ const scale= function(roots,type){
         let diminishedInterval = [0,2,3,5,6,8,9,11];
         return scaleIntervalInput(roots,diminishedInterval);
     } else {
-        return '*please select a valid option'
+        return '';
     }
 
 }

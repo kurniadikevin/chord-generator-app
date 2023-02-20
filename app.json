@@ -1,13 +1,13 @@
 {
   "expo": {
-    "name": "AwesomeProject",
-    "slug": "AwesomeProject",
+    "name": "Chord-Scale-App",
+    "slug": "Chord-Scale-App",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/icon-app.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/splash-app.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
