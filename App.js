@@ -244,12 +244,16 @@ function About ({navigation,route}){
     <ScrollView style={styles.container}>
       <Dashboard navigation={navigation} onVisitAbout = 'true' onVisitHome='false'/>
       <View style={styles.main}>
-        <Text style={{paddingBottom: 30}}>Scale and chord note system using mix of flat (b) and sharp (#) the note consist C C# D Eb E F F# G Ab A Bb B. Developed using React Native </Text>
-        <Text style={{paddingBottom: 10}}>© 2023 Kevin Kurniadi, All Right Reserved</Text>
-        <View 
-      onPress={() => Linking.openURL('https://github.com/kurniadikevin')}>
-      <Image style={{width: 30, height: 30}} source={require('./assets/github-mark.png')}/>
-</View>
+        <CustomText style={{paddingBottom: 30}}>
+        <Text >Scale and chord note system using mix of flat (b) and sharp (#) the note consist C C# D Eb E F F# G Ab A Bb B. Developed using React Native </Text>
+        </CustomText>
+        <CustomText style={{paddingBottom: 10}}>
+        <Text >© 2023 Kevin Kurniadi, All Right Reserved</Text>
+        </CustomText>
+        <TouchableOpacity 
+          onPress={() => Linking.openURL('https://github.com/kurniadikevin')}>
+          <Image style={{width: 30, height: 30}} source={require('./assets/github-mark.png')}/>
+    </TouchableOpacity>
       </View>
     
    
