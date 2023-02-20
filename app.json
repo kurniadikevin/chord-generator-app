@@ -22,12 +22,18 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/icon-app.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.kurniadikevin.ChordScaleApp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "388c5236-d6c9-4cc6-be73-5c4e943b94a3"
+      }
     }
   }
 }
