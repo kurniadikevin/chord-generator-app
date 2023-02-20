@@ -1,7 +1,7 @@
 import * as React from 'react';
 import SelectDropdown from 'react-native-select-dropdown';
 import { useState } from 'react';
-import { StyleSheet, Text, View, Image, TextInput, ScrollView, Button,TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, ScrollView,TouchableOpacity, Linking, Image } from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Dashboard from './Dashboard';
@@ -244,7 +244,12 @@ function About ({navigation,route}){
     <ScrollView style={styles.container}>
       <Dashboard navigation={navigation} onVisitAbout = 'true' onVisitHome='false'/>
       <View style={styles.main}>
-        <Text>About all</Text>
+        <Text style={{paddingBottom: 30}}>Scale and chord note system using mix of flat (b) and sharp (#) the note consist C C# D Eb E F F# G Ab A Bb B. Developed using React Native </Text>
+        <Text style={{paddingBottom: 10}}>© 2023 Kevin Kurniadi, All Right Reserved</Text>
+        <View 
+      onPress={() => Linking.openURL('https://github.com/kurniadikevin')}>
+      <Image style={{width: 30, height: 30}} source={require('./assets/github-mark.png')}/>
+</View>
       </View>
     
    
