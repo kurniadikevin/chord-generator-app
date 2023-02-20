@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection : 'row',
         justifyContent: 'center',
-        paddingBottom: 10,
+        paddingBottom: 5,
       },
       dashboard:{
         display: 'flex',

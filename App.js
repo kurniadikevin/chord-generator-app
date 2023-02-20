@@ -5,8 +5,8 @@ import { StyleSheet, Text, View, Image, TextInput, ScrollView, Button,TouchableO
 import {NavigationContainer} from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Dashboard from './Dashboard';
-import {chord} from './chord-logic';
-import {scale} from './scale-logic';
+import {chord} from './logic_function/chord-logic';
+import {scale} from './logic_function/scale-logic';
 import { getOrdinal } from './ordinalNum-logic';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
@@ -38,6 +38,9 @@ import CustomText from './CustomText';
 
   const indexingResult =(input,type)=>{
     if(input){
+      if (input.length > 20){
+        return '';
+      }
     const resArr = input.split(' ');
     let indexArr= [];
     for(let i=0; i<resArr.length; i++){
@@ -67,6 +70,10 @@ import CustomText from './CustomText';
       defaultButtonText='Chord'
       onSelect={selectedItem =>{ 
         setDataType(selectedItem);
+        //make default none
+        setResult('');
+        setResultIndex('');
+
         if( selectedItem === 'Chord'){
           setDataSelection(chordType);
         } else if( selectedItem === 'Scale'){
@@ -113,7 +120,7 @@ import CustomText from './CustomText';
       </View>
 
   {dataType === 'Chord' && 
-      <View style={styles.main.cont}>
+      <View style={styles.main.contExtension}>
           <CustomText>
             <Text  style={styles.main.cont.text}>Extensions {dataType} :</Text>
           </CustomText>
@@ -170,7 +177,7 @@ import CustomText from './CustomText';
 
 const styles = StyleSheet.create({
   container: {
-   padding: 40,
+   padding: 30,
    backgroundColor: '#D2D2D2',
   
   },
@@ -185,6 +192,15 @@ const styles = StyleSheet.create({
     cont: {
       borderWidth: 1,
       margin: 10,
+      padding: 8,
+      backgroundColor: '#4B505A',
+      text: {
+        color: '#FFFFFF'
+      }
+    },
+    contExtension : {
+      borderWidth: 1,
+      margin: 5,
       padding: 8,
       backgroundColor: '#4B505A',
       text: {

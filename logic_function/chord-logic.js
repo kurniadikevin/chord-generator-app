@@ -450,17 +450,15 @@ const chord = function (roots,type){
      return chord(roots,'Dominant11')+' '+ notes[extentionIndex];
     } 
     
+    else {
+      return '*please select a valid option'
+  }
+    
 }
 
 
-
-/*     console.log(
-chord('A#','minor')
-  ); 
-   */
-
  export {chord}; 
 
-//naturalized some third exp: C minor = C Eb G not C D# G
+
 
 
