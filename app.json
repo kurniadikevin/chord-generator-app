@@ -2,7 +2,7 @@
   "expo": {
     "name": "Chord-Scale-App",
     "slug": "Chord-Scale-App",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon-app.png",
     "userInterfaceStyle": "light",

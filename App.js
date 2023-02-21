@@ -16,9 +16,9 @@ import CustomText from './CustomText';
 
  function Home({navigation}) {
 
-  const [dataType,setDataType]= useState('');
+  const [dataType,setDataType]= useState('Chord');
   const [root, setRoot] = useState('C');
-  const [type,setType]= useState('');
+  const [type,setType]= useState('Mayor');
   const [result,setResult]= useState('');
   const [resultIndex,setResultIndex]= useState('');
 
@@ -90,7 +90,7 @@ import CustomText from './CustomText';
         </CustomText>
         <SelectDropdown
           data={rootSelection}
-          defaultButtonText='Not Selected'
+          defaultButtonText='C'
           onSelect={selectedItem =>{ 
              setRoot(selectedItem)
             setRootSelectColor(selectedBtnColor)
@@ -107,7 +107,7 @@ import CustomText from './CustomText';
           </CustomText>
           <SelectDropdown 
           data={dataSelection}
-           defaultButtonText='Not Selected'
+           defaultButtonText='Mayor'
           onSelect={(selectedItem) => {
             setType(selectedItem);
             setBasicSelectColor(selectedBtnColor);
